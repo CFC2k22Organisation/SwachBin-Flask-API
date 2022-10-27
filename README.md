@@ -1,2 +1,1 @@
-# swachbin
-swachbin - SMART BIN
+

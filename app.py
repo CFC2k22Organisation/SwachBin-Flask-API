@@ -1,24 +1,25 @@
 # some utilities
 from platform import python_branch
 import mysql.connector
+import time
 
 # Flask
 from flask import Flask, redirect, url_for, request, render_template, Response, jsonify, redirect
 
 #Test DB connection
-mydb = mysql.connector.connect(
-  host="us-cdbr-east-06.cleardb.net",
-  user="b9672cfc679037",
-  password="54055ecc",
-  database="heroku_a503fd3f3d82a0d"
-)
-
 # mydb = mysql.connector.connect(
-#   host="localhost",
-#   user="root",
-#   password="",
-#   database="smarttrash"
+#   host="us-cdbr-east-06.cleardb.net",
+#   user="b9672cfc679037",
+#   password="54055ecc",
+#   database="heroku_a503fd3f3d82a0d"
 # )
+
+mydb = mysql.connector.connect(
+  host="172.21.173.81",
+  user="root",
+  password="test1234",
+  database="smarttrash"
+)
 
 
 # Declare a flask app
@@ -58,12 +59,13 @@ def surrounding():
     '''
     Render the main page
     '''
-    mycursor = mydb.cursor()
-    mycursor.execute("SELECT * FROM smartbin")
-    myresult = mycursor.fetchall()
     empty = []
     full=[]
     half=[]
+
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM smartbin")
+    myresult = mycursor.fetchall()
     for x in myresult:
         print(x[3])
         if x[5]==1:
@@ -80,13 +82,14 @@ def displayBins():
     '''
     Render the main page
     '''
+    empty = []
+    full=[]
+    half=[]
 
     mycursor = mydb.cursor()
     mycursor.execute("SELECT * FROM smartbin")
     myresult = mycursor.fetchall()
-    empty = []
-    full=[]
-    half=[]
+
     for x in myresult:
         print(x[3])
         if x[5]==1:
@@ -133,6 +136,34 @@ def registerbin():
     '''
     return render_template('bin.html')
 
+@app.route('/predict', methods=['GET', 'POST'])
+def predict():
+    '''
+    predict function to predict the image
+    Api hits this function when someone clicks submit.
+    '''
+    if request.method == 'POST':
+        status = request.form.get('state')
+        item = request.form.get('item')
+        binid = 1
+
+       
+        timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+        mycursor = mydb.cursor()
+
+        if status == 'recycle':
+            sql = "INSERT INTO recycle (item, bin_id, timestamp) VALUES (%s, %s, %s)"
+        else:    
+            sql = "INSERT INTO nonrecycle (item, bin_id, timestamp) VALUES (%s, %s, %s)"
+        val = (item, 1, timestamp)        
+        mycursor.execute(sql, val)
+        mydb.commit()
+        print(mycursor.rowcount, "record inserted.")
+
+        # # Serialize the result, you can add additional fields
+        #return jsonify(result=result, probability=pred_proba)
+    return None
+
 @app.route('/addBin', methods=['POST'])
 def addbin():
     user_id = 1
@@ -148,5 +179,5 @@ def addbin():
     return render_template('index-old.html')
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(host='0.0.0.0')
     #app.run()
