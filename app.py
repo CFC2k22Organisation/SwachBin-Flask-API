@@ -8,16 +8,16 @@ from flask import Flask, redirect, url_for, request, render_template, Response, 
 
 #Test DB connection
 # mydb = mysql.connector.connect(
-#   host="us-cdbr-east-06.cleardb.net",
+#   host="xxxxxxxx",
 #   user="b9672cfc679037",
-#   password="54055ecc",
+#   password="xxxxxxxxx",
 #   database="heroku_a503fd3f3d82a0d"
 # )
 
 mydb = mysql.connector.connect(
-  host="172.21.173.81",
+  host="xxxxxxxx",
   user="root",
-  password="test1234",
+  password="xxxxxxxx",
   database="smarttrash"
 )
 
