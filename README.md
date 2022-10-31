@@ -1,70 +1,68 @@
 ## SwachBin Flask API
 
-## Get Started
+## Getting started
 
-Clone the repo:
+## Setup
 
-```bash
-git clone https://github.com/CFC2k22Organisation/SwachBin-Flask-API.git
-```
+This code works on Python3+ versions.
 
-Install the project dependencies:
+## Clone the repository
 
-```bash
-npm i
-```
+## With Docker:
 
-## Set Up Dhaan APP
+$ git clone https://github.com/CFC2k22Organisation/SwachBin-Flask-API.git
 
-### Step 1: Adding Auth0 configuration variables to Node.js
+$ SwachBin-Flask-API/
 
-Under the project directory, create a hidden file called `.env` to store configuration variables and secrets that your app needs:
+## Install Docker
+https://docs.docker.com/engine/install/ubuntu/
 
-```bash
-touch .env
-```
+## Build docker image
 
-Add the following to `.env`:
+$ docker build -t dhaan_docker .
 
-```bash
-AUTH0_CLIENT_ID=
-AUTH0_DOMAIN=
-AUTH0_CLIENT_SECRET=
-SESSION_SECRET=
-AUTH0_CALLBACK_URL=http://localhost:3000/callback
-```
+Note: ensure in app.py port is mentiond as 8080
 
-- `AUTH0_DOMAIN` is your **Domain** value from the "Settings".
+$ docker run -it -p 8080:8080 dhaan_docker
 
-- `AUTH0_CLIENT_ID` is your **Client ID** from the "Settings".
+In Browser run with 127.0.0.1:8080
 
-- `AUTH0_CLIENT_SECRET` is your **Client Secret** from the "Settings".
+## To push:
 
-Execute the following command to generate a suitable string for the session secret:
+$docker login
 
-```bash
-node -e "console.log(crypto.randomBytes(32).toString('hex'))"
-```
+  Username: XXXX
+  
+  Password: XXXX
+  
+$ docker tag dhaan_docker dhaan/dhaan_docker:1.0.0
 
-Copy and paste the output of the command above as the value for `SESSION_SECRET` in `.env`.
+$ docker push dhaan/dhaan_docker:1.0.0
 
-**Make sure to add this `.env` file to `.gitignore` so that it isn't committed to version control**.
+## Without Docker:
 
-## Run the Express Web App with Live Reload
+## Install the required libraries
 
-Run the server using `nodemon` under the hood:
+$ pip3 install -r requirements.txt
 
-```bash
-npm run dev
-```
+## Clone the repository
 
-In a separate terminal window, serve the client from a static server using Browsersync under the hood:
+$ git clone https://github.com/CFC2k22Organisation/SwachBin-Flask-API.git
 
-```bash
-npm run ui
-```
+$ SwachBin-Flask-API/
 
-> Browsersync proxies the server running on port `8000` with `nodemon`. Check out the npm script commands present in `package.json` for more details.
+## Run app.py
 
-To see the app in action, visit [`http://localhost:3000`](http://localhost:3000) on your browser.
+$ python3 app.py 
+
+or
+
+$ python -m flask run
+
+In Browser run with 127.0.0.1:5000
+
+## Live Demo Url:
+
+http://169.51.206.185:31539/
+
 
