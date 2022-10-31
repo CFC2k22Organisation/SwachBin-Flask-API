@@ -5,7 +5,7 @@
 Clone the repo:
 
 ```bash
-git clone https://github.com/Dhaan-Zero-Hunger/DhaanAPI.git
+git clone https://github.com/CFC2k22Organisation/SwachBin-Flask-API.git
 ```
 
 Install the project dependencies:
