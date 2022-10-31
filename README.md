@@ -19,11 +19,11 @@ https://docs.docker.com/engine/install/ubuntu/
 
 ## Build docker image
 
-$ docker build -t swatch_dashboard_docker .
+$ docker build -t swach_dashboard_docker .
 
 Note: ensure in app.py port is mentiond as 8080
 
-$ docker run -it -p 8080:8080 swatch_dashboard_docker
+$ docker run -it -p 8080:8080 swach_dashboard_docker
 
 In Browser run with 127.0.0.1:8080
 
@@ -35,9 +35,9 @@ $docker login
   
   Password: XXXX
   
-$ docker tag swatch_dashboard_docker swachBin/swatch_dashboard_docker:1.0.0
+$ docker tag swach_dashboard_docker swachBin/swach_dashboard_docker:1.0.0
 
-$ docker push swachBin/swatch_dashboard_docker:1.0.0
+$ docker push swachBin/swach_dashboard_docker:1.0.0
 
 ## Without Docker:
 
